@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tax Automation App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <header>
+        <h1>Tax Automation System</h1>
+        <p>Run locally: frontend + Flask backend API</p>
+      </header>
+
+      <section class="card">
+        <h2>API Configuration</h2>
+        <label for="apiBase">API Base URL</label>
+        <input id="apiBase" type="text" value="http://localhost:5000" />
+        <button id="saveConfig">Save API URL</button>
+        <small>Tip: start backend with <code>python backend/app.py</code>.</small>
+      </section>
+
+      <section class="grid">
+        <article class="card">
+          <h2>Create Tax Record</h2>
+          <form id="recordForm">
+            <input name="name" placeholder="Name" required />
+            <input name="email" type="email" placeholder="Email" required />
+            <input name="tax_year" type="number" placeholder="Tax year" required />
+            <input name="income" type="number" step="0.01" placeholder="Income" required />
+            <input name="deductions" type="number" step="0.01" placeholder="Deductions" required />
+            <button type="submit">Create Record</button>
+          </form>
+          <pre id="recordResult"></pre>
+        </article>
+
+        <article class="card">
+          <h2>Get Record Summary</h2>
+          <form id="summaryForm">
+            <input name="record_id" type="number" placeholder="Record ID" required />
+            <button type="submit">Fetch Summary</button>
+          </form>
+          <pre id="summaryResult"></pre>
+        </article>
+
+        <article class="card">
+          <h2>Create Reminder</h2>
+          <form id="reminderForm">
+            <input name="record_id" type="number" placeholder="Record ID" required />
+            <input name="deadline" type="date" required />
+            <input name="message" placeholder="Optional message" />
+            <button type="submit">Create Reminder</button>
+          </form>
+          <pre id="reminderResult"></pre>
+        </article>
+
+        <article class="card">
+          <h2>Upcoming Reminders</h2>
+          <form id="upcomingForm">
+            <input name="days" type="number" placeholder="Days ahead" value="30" required />
+            <button type="submit">Load Upcoming</button>
+          </form>
+          <pre id="upcomingResult"></pre>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

@@ -1,71 +1,58 @@
 # Automated Income Tax Preparation & Reminder System
 
 ## Overview
-Filing income tax is confusing for many people, especially when it comes to
-organizing income details, deductions, and remembering important deadlines.
-This project provides a lightweight Flask API that automates the basic workflow
-for collecting records, estimating tax, and tracking reminders.
+This project now includes a **real local frontend app** plus a Flask API backend.
+You can run the UI locally first, then connect it to the backend API.
 
-## Features
-- Create tax records with income + deduction details
-- Estimate tax using a simple 10% taxable-income rule (demo only)
-- Generate a tax summary for each saved record
-- Create and query upcoming reminder entries
-- Run locally with Python or Docker
+## Stack
+- Frontend: HTML, CSS, Vanilla JavaScript (`frontend/`)
+- Backend: Python Flask + SQLite (`backend/`)
+- Containerization: Docker + docker compose
 
 ## Project Structure
 ```text
+frontend/
+  index.html
+  styles.css
+  app.js
 backend/
-  app.py              # Flask app + SQLite initialization
-  requirements.txt    # Python dependencies
-  tests/test_app.py   # API test cases
+  app.py
+  requirements.txt
+  tests/test_app.py
 Dockerfile
 docker-compose.yml
 README.md
 ```
 
-## Quickstart (Local)
-1. Create and activate a virtual environment.
-2. Install dependencies:
+## Run locally (frontend first)
+1. Start frontend static server:
    ```bash
-   pip install -r backend/requirements.txt
+   cd frontend
+   python -m http.server 5500
    ```
-3. Run the API:
-   ```bash
-   python backend/app.py
-   ```
-4. Open `http://localhost:5000/health`.
+2. Open `http://localhost:5500`.
 
-## Quickstart (Docker)
+This allows you to see and use the app UI locally immediately.
+
+## Run backend API locally
+In a new terminal:
 ```bash
-docker compose up --build
+pip install -r backend/requirements.txt
+python backend/app.py
 ```
-API will be available on `http://localhost:5000`.
+Backend runs at `http://localhost:5000`.
 
-## Example API calls
-Create a record:
-```bash
-curl -X POST http://localhost:5000/records \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "Alice",
-    "email": "alice@example.com",
-    "tax_year": 2025,
-    "income": 100000,
-    "deductions": 20000
-  }'
-```
+In the frontend UI, keep API base URL as `http://localhost:5000`.
 
-Get summary:
-```bash
-curl http://localhost:5000/records/1/summary
-```
+## What the frontend can do
+- Create tax records
+- Fetch record summary by record ID
+- Create reminders
+- Query upcoming reminders
 
-Create reminder:
+## API quick checks (optional)
 ```bash
-curl -X POST http://localhost:5000/reminders \
-  -H "Content-Type: application/json" \
-  -d '{"record_id": 1, "deadline": "2026-04-10"}'
+curl http://localhost:5000/health
 ```
 
 ## Run tests
@@ -74,6 +61,10 @@ cd backend
 python -m unittest -v
 ```
 
+## Docker run
+```bash
+docker compose up --build
+```
+
 ## Disclaimer
-This project is for educational and demonstration purposes only.
-It is not legal or tax advice and does not perform official government filing.
+Educational/demo project only. Not legal or tax advice.
